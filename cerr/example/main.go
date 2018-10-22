@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -41,25 +42,32 @@ func l3() error {
 }
 
 func main() {
-	// if err := l3(); err != nil {
-	// 	if fe, ok := err.(cerr.CError); ok {
-	// 		log.Println(fe.FullMessage())
-	// 		// pretty.Println(fe.FullErrorStack())
-	// 	}
 
-	// 	j, _ := json.Marshal(err)
-	// 	log.Println(string(j))
+	e1 := cerr.Wrap(nil, "test", "test")
+	if e1 == nil {
+		log.Println("e1=nil")
+	}
+	log.Println(e1)
 
-	// 	outMsg := cerr.CErrorMessage{}
-	// 	err := json.Unmarshal(j, &outMsg)
-	// 	if err != nil {
-	// 		panic(err)
-	// 	}
+	if err := l3(); err != nil {
+		if fe, ok := err.(cerr.CError); ok {
+			log.Println(fe.FullMessage())
+			// pretty.Println(fe.FullErrorStack())
+		}
 
-	// 	// pretty.Println(outMsg)
-	// 	log.Println(outMsg.FullMessage())
-	// }
-	// return
+		j, _ := json.Marshal(err)
+		log.Println(string(j))
+
+		outMsg := cerr.CErrorMessage{}
+		err := json.Unmarshal(j, &outMsg)
+		if err != nil {
+			panic(err)
+		}
+
+		// pretty.Println(outMsg)
+		log.Println(outMsg.FullMessage())
+	}
+	return
 
 	lis, err := net.Listen("tcp", ":3002")
 	if err != nil {

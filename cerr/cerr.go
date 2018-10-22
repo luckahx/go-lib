@@ -61,7 +61,7 @@ func New(code string, message string) *CErrorMessage {
 
 func Wrap(err error, code string, message string) *CErrorMessage {
 	if err == nil {
-		return New(code, message)
+		return nil
 	}
 	return &CErrorMessage{Code: code, Msg: message, Cause: FromError(err)}
 }
