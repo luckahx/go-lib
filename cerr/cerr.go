@@ -58,12 +58,18 @@ func (e *CErrorMessage) FullErrorStack() []CError {
 func New(code string, message string) *CErrorMessage {
 	return &CErrorMessage{Code: code, Msg: message}
 }
+func Newf(code string, messageformat string, vals ...interface{}) *CErrorMessage {
+	return New(code, fmt.Sprintf(messageformat, vals...))
+}
 
 func Wrap(err error, code string, message string) *CErrorMessage {
 	if err == nil {
 		return nil
 	}
 	return &CErrorMessage{Code: code, Msg: message, Cause: FromError(err)}
+}
+func Wrapf(err error, code string, messageformat string, vals ...interface{}) *CErrorMessage {
+	return Wrap(err, code, fmt.Sprintf(messageformat, vals...))
 }
 
 func FromError(e error) *CErrorMessage {
