@@ -1,0 +1,8 @@
+syntax = "proto3";
+package protocerr;
+
+message CError {
+	string Code  = 1;
+	string Msg   = 2;
+	CError Cause = 3;
+}

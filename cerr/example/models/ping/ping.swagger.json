@@ -1,0 +1,45 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ping.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "pingPingResponse": {
+      "type": "object",
+      "properties": {
+        "err": {
+          "$ref": "#/definitions/protocerrCError"
+        },
+        "Data": {
+          "type": "string"
+        }
+      }
+    },
+    "protocerrCError": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "type": "string"
+        },
+        "Msg": {
+          "type": "string"
+        },
+        "Cause": {
+          "$ref": "#/definitions/protocerrCError"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+syntax = "proto3";
+package ping;
+
+import "github.com/luckahx/go-lib/cerr/proto/protocerr/protocerr.proto";
+
+service Ping {
+  rpc Ping (PingReq) returns (PingResponse) {}
+}
+
+message PingReq {
+  string Data = 1;
+}
+
+message PingResponse {
+  protocerr.CError err = 1;
+  string Data = 2;
+}
+
