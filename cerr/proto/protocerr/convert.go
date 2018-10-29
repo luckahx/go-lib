@@ -39,3 +39,9 @@ func (e *CError) FullMessage() string {
 func (e *CError) FullErrorStack() []cerr.CError {
 	return FromProto(e).FullErrorStack()
 }
+func (e *CError) Has(code string) cerr.CError {
+	return FromProto(e).Has(code)
+}
+func (e *CError) GetTS() int64 {
+	return FromProto(e).GetTS()
+}

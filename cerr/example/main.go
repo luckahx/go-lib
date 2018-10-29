@@ -49,6 +49,13 @@ func main() {
 	}
 	log.Println(e1)
 
+	switch code, theErr := e1.HasFirst("l2_err", "l1_err"); code {
+	case "l1_err":
+		log.Println(theErr.Error())
+	case "l2_err":
+		log.Println("has l2 err")
+	}
+
 	if err := l3(); err != nil {
 		if fe, ok := err.(cerr.CError); ok {
 			log.Println(fe.FullMessage())
