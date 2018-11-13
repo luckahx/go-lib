@@ -39,8 +39,14 @@ func (e *CError) FullMessage() string {
 func (e *CError) FullErrorStack() []cerr.CError {
 	return FromProto(e).FullErrorStack()
 }
-func (e *CError) Has(code string) cerr.CError {
+func (e *CError) Has(code string) bool {
 	return FromProto(e).Has(code)
+}
+func (e *CError) Get(code string) cerr.CError {
+	return FromProto(e).Get(code)
+}
+func (e *CError) GetFirst(codes ...string) (string, cerr.CError) {
+	return FromProto(e).GetFirst(codes...)
 }
 func (e *CError) GetTS() int64 {
 	return FromProto(e).GetTS()

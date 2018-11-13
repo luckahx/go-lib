@@ -16,8 +16,9 @@ type CError interface {
 
 	FullMessage() string
 	FullErrorStack() []CError
-	Has(code string) CError
-	HasFirst(codes ...string) (string, CError)
+	Has(code string) bool
+	Get(code string) CError
+	GetFirst(codes ...string) (string, CError)
 }
 
 type CErrorMessage struct {
@@ -62,7 +63,10 @@ func (e *CErrorMessage) FullErrorStack() []CError {
 	}
 	return errs
 }
-func (e *CErrorMessage) Has(code string) CError {
+func (e *CErrorMessage) Has(code string) bool {
+	return e.Get(code) != nil
+}
+func (e *CErrorMessage) Get(code string) CError {
 	for _, err := range e.FullErrorStack() {
 		if err.GetCode() == code {
 			return err
@@ -70,10 +74,10 @@ func (e *CErrorMessage) Has(code string) CError {
 	}
 	return nil
 }
-func (e *CErrorMessage) HasFirst(codes ...string) (string, CError) {
+func (e *CErrorMessage) GetFirst(codes ...string) (string, CError) {
 	for _, err := range e.FullErrorStack() {
 		for _, code := range codes {
-			if err.GetCode() == code {
+			if FromError(err).GetCode() == code {
 				return code, err
 			}
 		}
