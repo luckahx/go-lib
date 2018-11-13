@@ -25,4 +25,3 @@ git add changelog.txt
 git commit -m"release $VER" || exit 1
 
 git tag $VER
-git tag -f staging $VER
